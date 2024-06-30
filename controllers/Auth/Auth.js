@@ -22,13 +22,13 @@ const onboard = async (req, res) => {
   }
     try {
         const connection = await initializeDatabase();
-        const [rows, fields] = await connection.execute('SELECT * FROM staff WHERE email = ?', [email]);
+        const [rows, fields] = await connection.execute('SELECT * FROM Staff WHERE email = ?', [email]);
         if (rows.length > 0) {
           return res.status(500).send({ error: "Please use unique Email" });
         }
         const encryptedPassword = CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString();
         const userId = generateUserId();
-        const [result] = await connection.execute('INSERT INTO staff (staff_id,email, password,status, role_id, permission_id) VALUES (?,?, ?, ?, ?, ?)', 
+        const [result] = await connection.execute('INSERT INTO Staff (staff_id,email, password,status, role_id, permission_id) VALUES (?,?, ?, ?, ?, ?)', 
           [
             userId,
             email,
@@ -57,7 +57,7 @@ const login = async (req, res) => {
 
   try {
     const connection = await initializeDatabase();
-    const [rows] = await connection.execute('SELECT * FROM staff WHERE email = ?', [email]);
+    const [rows] = await connection.execute('SELECT * FROM Staff WHERE email = ?', [email]);
     if (rows.length === 0) return res.status(404).send({ error: "Email not Found" });
 
     const user = rows[0];
@@ -89,7 +89,7 @@ const updateStaff = async (req, res) => {
     const fields = Object.keys(updates).map(field => `${field} = ?`).join(', ');
     const values = [...Object.values(updates), req.params.id];
     const [result] = await connection.execute(
-      `UPDATE staff SET ${fields} WHERE staff_id = ?`,
+      `UPDATE Staff SET ${fields} WHERE staff_id = ?`,
       values
     );
 
@@ -103,7 +103,7 @@ const terminateStaff = async (req, res) => {
   console.log(req.params.id);
   try {
     const connection = await initializeDatabase();
-    const [result] = await connection.execute('DELETE FROM staff WHERE staff_id = ?', [req.params.id]);
+    const [result] = await connection.execute('DELETE FROM Staff WHERE staff_id = ?', [req.params.id]);
     res.status(200).json({ status:'success', msg: "Staff has been terminate..." });
   } catch (err) {
     res.status(500).json(err);
@@ -113,7 +113,7 @@ const terminateStaff = async (req, res) => {
 const getStaff = async (req, res) => {
   try {
     const connection = await initializeDatabase();
-    const [rows] = await connection.execute('SELECT * FROM staff WHERE staff_id = ?', [req.params.id]);
+    const [rows] = await connection.execute('SELECT * FROM Staff WHERE staff_id = ?', [req.params.id]);
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
 
     const user = rows[0];
@@ -128,7 +128,7 @@ const getStaff = async (req, res) => {
 const allStaff = async (req, res) => {
   try {
     const connection = await initializeDatabase();
-    const [rows] = await connection.execute('SELECT * FROM staff');
+    const [rows] = await connection.execute('SELECT * FROM Staff');
     res.status(200).json(rows);
   } catch (error) {
     res.status(500).json(error);
@@ -140,11 +140,11 @@ const resetPassword = async (req, res) => {
   console.log(email);
   try {
     const connection = await initializeDatabase();
-    const [rows] = await connection.execute('SELECT * FROM staff WHERE email = ?', [email]);
+    const [rows] = await connection.execute('SELECT * FROM Staff WHERE email = ?', [email]);
     if (rows.length === 0) return res.status(404).send("Email Not found!!!!");
 
     const encryptedPassword = CryptoJS.AES.encrypt(password, process.env.PASS_SEC).toString();
-    await connection.execute('UPDATE staff SET password = ? WHERE email = ?', [encryptedPassword, email]);
+    await connection.execute('UPDATE Staff SET password = ? WHERE email = ?', [encryptedPassword, email]);
     return res.status(201).send({ status:'success', msg: "Password Updated...!" });
   } catch (error) {
     return res.status(500).send({ error: "Not found!!!" });
