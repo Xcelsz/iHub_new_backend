@@ -5,7 +5,7 @@ const initializeDatabase = require('../../config/db');
 // const otpGenerator = require('otp-generator');
 
 const getAllRoles = async (req, res) => {
-    const sql = "SELECT * FROM roles";
+    const sql = "SELECT * FROM Roles";
     const connection = await initializeDatabase();
     try {
       const [rows, fields] = await connection.execute(sql)
@@ -19,7 +19,7 @@ const getAllRoles = async (req, res) => {
     }
 };
 const getAllTeams = async (req, res) => {
-    const sql = "SELECT * FROM teams";
+    const sql = "SELECT * FROM Teams";
     const connection = await initializeDatabase();
     try {
       const [rows, fields] = await connection.execute(sql)
