@@ -8,8 +8,12 @@ app.use(cors());
 
 const authRoute = require('./routes/Auth/Auth');
 app.use('/api/auth', authRoute);
+
 const featuresRoute = require('./routes/Features/Features');
 app.use('/api/feature', featuresRoute);
+
+const listingRoute = require('./routes/Listing/Listing');
+app.use('/api/listing', listingRoute);
 
 
 
