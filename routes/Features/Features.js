@@ -9,11 +9,13 @@ const router = express.Router();
 
 const {
     getAllRoles,
-    getAllTeams
+    getAllTeams,
+    getAllListingTypes
 } = require('../../controllers/Features/Features')
 /** POST Methods */
 router.route("/roles").get(getAllRoles)
 router.route("/teams").get(getAllTeams)
+router.route("/listingTypes").get(getAllListingTypes)
 // router.route('/onboard').post(register)
 /** GET Methods */
 /** DELETE Methods */

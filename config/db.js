@@ -7,6 +7,12 @@ async function initializeDatabase() {
         password: "cJcwVNP2K6",
         database: "sql10717088",
     });
+    // const connection = await mysql.createConnection({
+    //     host: "localhost",
+    //     user: "root",
+    //     password: "",
+    //     database: "xcelzs2018_ihubx",
+    // });
     return connection;
 }
 
