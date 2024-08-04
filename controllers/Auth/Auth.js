@@ -48,6 +48,7 @@ const onboard = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.query;
+  
   if (!email) {
     return res.status(400).send('Email parameter is required.');
   }
@@ -68,9 +69,6 @@ const login = async (req, res) => {
       return res.status(401).json({ error:"Wrong Password"});
     }
 
-    // const accessToken = jwt.sign({ id: user.id, isAdmin: user.isAdmin }, process.env.JWT_SEC, { expiresIn: "3d" });
-
-    // return res.status(200).send({ msg: "Login Successful...!", email: user.email, accessToken });
     return res.status(200).send({ msg: "Login Successful...!", user: user });
   } catch (error) {
     return res.status(500).send({ error });

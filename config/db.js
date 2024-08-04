@@ -2,10 +2,14 @@ const mysql = require('mysql2/promise');
 
 async function initializeDatabase() {
     const connection = await mysql.createConnection({
-        host: "sql10.freesqldatabase.com",
-        user: "sql10717088",
-        password: "cJcwVNP2K6",
-        database: "sql10717088",
+        // host: "sql10.freesqldatabase.com",
+        // user: "sql10717088",
+        // password: "cJcwVNP2K6",
+        // database: "sql10717088",
+        host: 'localhost', 
+        user: 'xcelzs2018',
+        password: 'Xs_shellsz202322',
+        database: 'xcelzs2018_ihubx'
     });
     // const connection = await mysql.createConnection({
     //     host: "localhost",

@@ -13,7 +13,8 @@ const {
     getAllListing,
     getListByDealType,
     deleteListing,
-    editListing
+    editListing,
+    archiveListing
 } = require('../../controllers/Listing/Listing')
 
 /** POST Methods */
@@ -22,6 +23,7 @@ router.route("/get-all-deals").get(getAllListing)
 router.route("/getdeal/:id").get(getListByDealType)
 router.route("/delete/:id").delete(deleteListing)
 router.route("/edit/:id").delete(editListing)
+router.route("/archive-listing/:id").patch(archiveListing)
 
 
 
